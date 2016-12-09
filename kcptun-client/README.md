@@ -1,7 +1,7 @@
 # kcptun client Dockerfile
 
-[docker-hub](https://hub.docker.com/r/wendellsun/kcptun-client/)
-[kcptun](https://github.com/xtaci/kcptun)
+* [docker-hub](https://hub.docker.com/r/wendellsun/kcptun-client/)
+* [kcptun](https://github.com/xtaci/kcptun)
 
 ## Run example
 `docker run -d -p 3500:3500 --name kcptun-client -e R=10.0.0.1:3400 wendellsun/kcptun-client`

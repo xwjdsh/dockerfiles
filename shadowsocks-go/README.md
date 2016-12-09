@@ -1,7 +1,7 @@
 # SS Dockerfile
 
-[docker-hub](https://hub.docker.com/r/wendellsun/shadowsocks-go/)
-[shadowsocks-go](https://github.com/shadowsocks/shadowsocks-go)
+* [docker-hub](https://hub.docker.com/r/wendellsun/shadowsocks-go/)
+* [shadowsocks-go](https://github.com/shadowsocks/shadowsocks-go)
 
 ## Run example:
 `docker run -d -p 3389:3389 --name ss -e K=password wendellsun/shadowsocks-go`
