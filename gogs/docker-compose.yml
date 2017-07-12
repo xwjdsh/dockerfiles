@@ -5,8 +5,24 @@ services:
     container_name: nginx-proxy
     ports:
       - "80:80"
+      - "443:443"
     volumes:
       - "/var/run/docker.sock:/tmp/docker.sock:ro"
+      - "./certs:/etc/nginx/certs:ro"
+      - "/etc/nginx/vhost.d"
+      - "/usr/share/nginx/html"
+    labels:
+      - "com.github.jrcs.letsencrypt_nginx_proxy_companion.nginx_proxy=true"
+    restart: always
+
+  nginx-proxy-ssl:
+    image: jrcs/letsencrypt-nginx-proxy-companion
+    container_name: nginx-proxy-ssl
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+      - "./certs:/etc/nginx/certs:rw"
+    volumes_from:
+      - "nginx-proxy"
     restart: always
 
   mysql:
@@ -17,7 +33,7 @@ services:
       - "./mysql/conf:/etc/mysql/conf.d"
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: 123456
+      MYSQL_ROOT_PASSWORD: wendellsun
       MYSQL_DATABASE: gogs
 
   gogs:
@@ -26,10 +42,12 @@ services:
     depends_on:
       - mysql
     volumes:
-      - "./gogs:/data"
+      - "./gogs-data:/data"
     environment:
-      - VIRTUAL_HOST=git.sunwen.in
-      - VIRTUAL_PORT=3000
+      - "VIRTUAL_HOST=git.sunwen.in"
+      - "VIRTUAL_PORT=3000"
+      - "LETSENCRYPT_HOST=git.sunwen.in"
+      - "LETSENCRYPT_EMAIL=iwendellsun@gmail.com"
     links:
       - mysql
     ports:
