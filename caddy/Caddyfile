@@ -1,0 +1,4 @@
+change.me {
+    tls your@email.com
+    proxy / localhost:5000 
+}
